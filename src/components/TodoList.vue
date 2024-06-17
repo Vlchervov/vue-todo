@@ -12,10 +12,10 @@ const todoListStore = useTodoListStore()
         <ul>
             <li v-for="todo of todoListStore.tasks">
                 <label :class="todo.class" :for="todo.id" @click="todoListStore.toggleCompleted(todo.id)">{{ todo.value
-                    }}</label>
+                    }} <button v-if="!todoListStore.checkMode" class="delete-button"
+                        @click="todoListStore.deleteTask(todo.id)" />
+                </label>
                 <input type="checkbox" :id="todo.id" />
-                <button v-for=" of todoListStore.checkRedactionMode"
-                    @click="todoListStore.deleteTask(todo.id)">Удалить</button>
             </li>
         </ul>
         <form class="add-task-container" v-for="state of todoListStore.InputState"

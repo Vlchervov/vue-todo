@@ -22,8 +22,8 @@ export const useTodoListStore = defineStore('todoListStore', {
             return this.tasks.length;
         },
 
-        checkRedactionMode() {
-            return this.redactionMode.filter(el => el.redaction);
+        checkMode() {
+            return this.redactionMode.findIndex(el => el.redaction);
         }
     },
     actions: {
@@ -34,6 +34,7 @@ export const useTodoListStore = defineStore('todoListStore', {
         },
         deleteTask(id) {
             this.tasks = this.tasks.filter(el => el.id !== id);
+         
         },
         checkInput(value) {
             const newError = this.InputState.findIndex(el => el.error.message === el.error.message);
@@ -55,6 +56,7 @@ export const useTodoListStore = defineStore('todoListStore', {
             } else {
                 this.InputState[newError].error.message = "Поле должно быть заполнено!";
             }
+         return [...this.tasks]
         },
 
         changeRedactionMode() {
