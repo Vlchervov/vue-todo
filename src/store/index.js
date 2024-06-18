@@ -15,6 +15,10 @@ export const useTodoListStore = defineStore('todoListStore', {
 
         redactionMode: [
             { redaction: false, name: "Править" }
+        ],
+
+        addTaskHidden: [
+            { hidden: true }
         ]
     }),
     getters: {
@@ -22,8 +26,12 @@ export const useTodoListStore = defineStore('todoListStore', {
             return this.tasks.length;
         },
 
-        checkMode() {
+        checkRedactionMode() {
             return this.redactionMode.findIndex(el => el.redaction);
+        },
+
+        checkAddTaskHidden() {
+            return this.addTaskHidden.findIndex(el => el.hidden);
         }
     },
     actions: {
@@ -34,7 +42,7 @@ export const useTodoListStore = defineStore('todoListStore', {
         },
         deleteTask(id) {
             this.tasks = this.tasks.filter(el => el.id !== id);
-         
+
         },
         checkInput(value) {
             const newError = this.InputState.findIndex(el => el.error.message === el.error.message);
@@ -56,13 +64,18 @@ export const useTodoListStore = defineStore('todoListStore', {
             } else {
                 this.InputState[newError].error.message = "Поле должно быть заполнено!";
             }
-         return [...this.tasks]
+            return [...this.tasks]
         },
 
         changeRedactionMode() {
             const newRedaction = this.redactionMode.findIndex(el => el.redaction === el.redaction);
             this.redactionMode[newRedaction].redaction = !this.redactionMode[newRedaction].redaction;
             this.redactionMode[newRedaction].name = this.redactionMode[newRedaction].redaction === true ? "Отмена" : "Править";
+            this.addTaskHidden[0].hidden = true;
+        },
+
+        changeAddTaskHiddenState() {
+            this.addTaskHidden[0].hidden = !this.addTaskHidden[0].hidden;
         }
     }
 })
