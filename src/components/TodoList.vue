@@ -9,10 +9,13 @@ const todoListStore = useTodoListStore()
             <button v-for="redaction of todoListStore.redactionMode" @click="todoListStore.changeRedactionMode">{{
                 redaction.name }}</button>
         </div>
-        <ul>
+        <ul class="tasks-list">
             <li v-for="todo of todoListStore.tasks">
-                <label :class="todo.class" :for="todo.id" @click="todoListStore.toggleCompleted(todo.id)">{{ todo.value
-                    }} <button v-if="!todoListStore.checkMode" class="delete-button"
+                <label :class="todo.class" :for="todo.id" @click="() => {
+                    if (todoListStore.checkMode) todoListStore.toggleCompleted(todo.id)
+                }">
+                    {{ todo.value }}
+                    <button v-if="!todoListStore.checkMode" class="delete-button"
                         @click="todoListStore.deleteTask(todo.id)" />
                 </label>
                 <input type="checkbox" :id="todo.id" />
@@ -25,7 +28,10 @@ const todoListStore = useTodoListStore()
             <textarea type="text" :maxlength="18" v-model="state.taskValue"
                 placeholder="Введите наименование задачи..." />
             <p v-if="state?.error.message">{{ state.error.message }}</p>
-            <button type="button" @click="todoListStore.addNewTask(state.taskValue)">Добавить</button>
+            <div>
+                <button type="button" @click="todoListStore.addNewTask(state.taskValue)">Добавить</button>
+                <button>Отмена</button>
+            </div>
         </form>
     </main>
 </template>
