@@ -60,7 +60,7 @@ export const useTodoListStore = defineStore('todoListStore', {
                     value: value,
                     class: "unchecked"
                 })
-                this.InputState[newValue].taskValue = '', this.InputState[newError].error.message = "";
+                this.InputState[newValue].taskValue = '', this.InputState[newError].error.message = "", this.addTaskHidden[0].hidden = true;
             } else {
                 this.InputState[newError].error.message = "Поле должно быть заполнено!";
             }

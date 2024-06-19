@@ -1,5 +1,6 @@
 <script setup>
 import { useTodoListStore } from '../store'
+import AddTaskComponent from './addTaskComponent.vue';
 const todoListStore = useTodoListStore()
 </script>
 <template>
@@ -28,15 +29,6 @@ const todoListStore = useTodoListStore()
         <button class="add-task-button" v-if="todoListStore.checkRedactionMode"
             @click="todoListStore.changeAddTaskHiddenState()">Добавить
             задачу</button>
-        <div v-if="todoListStore.checkAddTaskHidden" class="add-task-container"
-            v-for="state of todoListStore.InputState" :on-change="todoListStore.checkInput(state.taskValue)">
-            <textarea type="text" :maxlength="18" v-model="state.taskValue"
-                placeholder="Введите наименование задачи..." />
-            <p v-if="state?.error.message">{{ state.error.message }}</p>
-            <div>
-                <button type="button" @click="todoListStore.addNewTask(state.taskValue)">Добавить</button>
-                <button @click="todoListStore.changeAddTaskHiddenState()">Отмена</button>
-            </div>
-        </div>
+        <AddTaskComponent :todoListStore="todoListStore" />
     </main>
 </template>
