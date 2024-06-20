@@ -1,7 +1,10 @@
 <script setup>
 import { useTodoListStore } from '../store'
+import { ref } from 'vue'
 import AddTaskComponent from './addTaskComponent.vue';
 const todoListStore = useTodoListStore()
+const modalIsVisible = ref(false);
+
 </script>
 <template>
     <main>
@@ -14,7 +17,11 @@ const todoListStore = useTodoListStore()
             <ul class="tasks-list">
                 <li v-for="todo of todoListStore.tasks">
                     <label :for="todo.id" @click="() => {
-                if (todoListStore.checkRedactionMode) todoListStore.toggleCompleted(todo.id)
+                if (todoListStore.checkRedactionMode) {
+                    todoListStore.toggleCompleted(todo.id);
+                } else {
+                    modalIsVisible = !modalIsVisible;
+                }
             }">
                         <button :class="todo.class" class="check-button" v-if="todoListStore.checkRedactionMode" />
                         <button v-if="!todoListStore.checkRedactionMode" class="delete-button"
@@ -29,6 +36,15 @@ const todoListStore = useTodoListStore()
         <button class="add-task-button" v-if="todoListStore.checkRedactionMode"
             @click="todoListStore.changeAddTaskHiddenState()">Добавить
             задачу</button>
+        <div class="edit-task-container-wrapper" v-if="modalIsVisible">
+            <div class="edit-task-container">
+                <input type="text" />
+                <div class="add-cancel-buttons-container">
+                    <button type="button" @click="todoListStore.editTask()">Изменить</button>
+                    <button @click="modalIsVisible = !modalIsVisible">Отмена</button>
+                </div>
+            </div>
+        </div>
         <AddTaskComponent :todoListStore="todoListStore" />
     </main>
 </template>
