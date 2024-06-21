@@ -15,6 +15,12 @@ main {
   }
 }
 
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+
 .add-task-button {
   border: none;
   border-radius: 4px;
@@ -75,9 +81,11 @@ main {
   align-items: center;
   background-color: white;
   border-radius: 12px 12px 0px 0px;
+
   @media (max-width: 900px) {
     height: 600px;
   }
+
   textarea {
     margin-top: 22px;
     outline: none;
@@ -115,6 +123,7 @@ main {
 
     &:nth-child(2) {
       background-color: #ff424b;
+
       &:hover {
         background-color: #ff000d;
       }
@@ -151,12 +160,47 @@ p {
   }
 }
 
+label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: row;
+  padding: 12px 24px 12px 0px;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #0000000e;
+    border-radius: 4px;
+  }
+
+  &::before {
+    border: 1px solid rgb(37, 139, 255);
+    border-radius: 25px;
+    margin-right: 8px;
+  }
+}
+
+.unchecked {
+  &::before {
+    content: "";
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 20px;
+    height: 20px;
+  }
+}
+
 .checked {
-  // background-color: #0000000e;
-  // border-radius: 12px;
+  opacity: 0.5;
 
   &::before {
     content: url(./check.svg);
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -180,13 +224,13 @@ ul {
 
     button {
       padding: 0px;
-      width: 20px;
-      height: 20px;
       background-color: white;
       margin-right: 8px;
       border-radius: 25px;
       cursor: pointer;
       border: none;
+      width: 22px;
+      height: 22px;
     }
   }
 }
@@ -201,22 +245,5 @@ ul {
 .delete-button {
   &:before {
     content: url(./delete.svg);
-  }
-}
-
-label {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  flex-direction: row;
-  padding: 12px 24px 12px 0px;
-  font-size: 20px;
-  cursor: pointer;
-  user-select: none;
-  transition: all 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #0000000e;
-    border-radius: 4px;
   }
 }

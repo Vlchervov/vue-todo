@@ -32,6 +32,11 @@ export const useTodoListStore = defineStore('todoListStore', {
 
         checkAddTaskHidden() {
             return this.addTaskHidden.findIndex(el => el.hidden);
+        },
+
+        checkTaskValue() {
+            const nValue = this.tasks.findIndex(el => el.value === el.value);
+            return this
         }
     },
     actions: {
