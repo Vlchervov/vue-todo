@@ -16,8 +16,8 @@ main {
 }
 
 input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   display: none;
 }
 
@@ -38,7 +38,8 @@ input[type="checkbox"] {
   }
 }
 
-.tasks-list-container {
+.tasks-list-container,
+.edit-task-container {
   height: 300px;
   width: 350px;
   overflow-y: auto;
@@ -56,7 +57,8 @@ input[type="checkbox"] {
   }
 }
 
-.add-task-container-wrapper {
+.add-task-container-wrapper,
+.edit-task-container-wrapper {
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -67,14 +69,16 @@ input[type="checkbox"] {
   background-color: rgba(0, 0, 0, 0.185);
 }
 
-.add-cancel-buttons-container {
+.add-cancel-buttons-container,
+.edit-cancel-buttons-container {
   display: flex;
   justify-content: space-between;
   max-width: 350px;
   width: 100%;
 }
 
-.add-task-container {
+.add-task-container,
+.edit-task-container {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -84,6 +88,17 @@ input[type="checkbox"] {
 
   @media (max-width: 900px) {
     height: 600px;
+  }
+
+  input {
+    margin: 20px 0px 12px 0px;
+    padding: 0px 0px 0px 8px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #d9d9d9;
+    height: 45px;
+    min-width: 350px;
+    max-width: 350px;
   }
 
   textarea {
@@ -165,21 +180,23 @@ label {
   align-items: center;
   width: 100%;
   flex-direction: row;
-  padding: 12px 24px 12px 0px;
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 40px;
+  font-weight: 500;
   cursor: pointer;
   user-select: none;
   transition: all 0.3s ease-in-out;
-
   &:hover {
     background-color: #0000000e;
     border-radius: 4px;
   }
 
   &::before {
-    border: 1px solid rgb(37, 139, 255);
+    border: 1px solid #d9d9d9;
     border-radius: 25px;
-    margin-right: 8px;
+    margin-right: 12px;
+    width: 22px;
+    height: 22px;
   }
 }
 
@@ -189,18 +206,13 @@ label {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    width: 20px;
-    height: 20px;
   }
 }
 
 .checked {
   opacity: 0.5;
-
   &::before {
     content: url(./check.svg);
-    width: 20px;
-    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -223,27 +235,25 @@ ul {
     align-items: center;
 
     button {
-      padding: 0px;
       background-color: white;
-      margin-right: 8px;
+      width: 24px;
+      height: 24px;
       border-radius: 25px;
-      cursor: pointer;
+      display: flex;
+      padding: 0px;
       border: none;
-      width: 22px;
-      height: 22px;
+      cursor: pointer;
     }
   }
 }
 
-.check-button {
-  border: 1px solid rgb(37, 139, 255);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
 .delete-button {
+  display: flex;
+  margin-right: 12px;
+  align-items: center;
   &:before {
+    width: 24px;
+    height: 24px;
     content: url(./delete.svg);
   }
 }

@@ -1,9 +1,14 @@
 <script setup>
-import { useTodoListStore } from '../store'
 import { ref } from 'vue'
-import AddTaskComponent from './addTaskComponent.vue';
+import { useTodoListStore } from '../store'
 const todoListStore = useTodoListStore()
-const modalIsVisible = ref(false);
+const stateTaskValue = ref("")
+const stateTaskId = ref(null);
+
+function iteratingTasks(todo) {
+    stateTaskValue.value = todo.value;
+    stateTaskId.value = todo.id
+}
 
 </script>
 <template>
@@ -14,31 +19,21 @@ const modalIsVisible = ref(false);
                 redaction.name }}</button>
         </div>
         <div class="tasks-list-container">
-            <ul class="tasks-list" v-for="todo of todoListStore.tasks">
-                <li>
-                    <label :for="todo.id" :class="todoListStore.checkRedactionMode && todo.class" @click="() => {
-                        if (!todoListStore.checkRedactionMode) {
-                            modalIsVisible = !modalIsVisible;
-                            console.log(todoListStore.checkTaskValue)
-                        }
-                    }">
-                        <!-- <button :class="todo.class" class="check-button" v-if="todoListStore.checkRedactionMode" /> -->
-
-                        <button v-if="!todoListStore.checkRedactionMode" class="delete-button"
-                            @click="todoListStore.deleteTask(todo.id)" />{{ todo.value }}
+            <ul class="tasks-list">
+                <li v-for="todo in todoListStore.tasks">
+                    <label :class="todoListStore.checkRedactionMode && todo.class" :for="todo.id" @click="() => {
+                if (!todoListStore.checkRedactionMode) {
+                    todoListStore.changeRedactionModalTaskVisible()
+                    iteratingTasks(todo)
+                }
+            }">
+                        {{ todo.value }}
                     </label>
                     <input type="checkbox" :id="todo.id"
                         :onChange="() => { if (todoListStore.checkRedactionMode) todoListStore.toggleCompleted(todo.id) }" />
+                    <button v-if="!todoListStore.checkRedactionMode" class="delete-button"
+                        @click="todoListStore.deleteTask(todo.id)" />
                 </li>
-                <div class="add-task-container-wrapper" v-if="modalIsVisible">
-                    <div class="edit-task-container">
-                        <input />
-                        <div class="add-cancel-buttons-container">
-                            <button type="button" @click="">Изменить</button>
-                            <button @click="modalIsVisible = !modalIsVisible">Отмена</button>
-                        </div>
-                    </div>
-                </div>
             </ul>
             <p v-if="todoListStore.totalCountTasks <= 0">Список задач пуст. Добавьте задачу, чтобы она отобразилась
                 в
@@ -47,6 +42,15 @@ const modalIsVisible = ref(false);
         <button class="add-task-button" v-if="todoListStore.checkRedactionMode"
             @click="todoListStore.changeAddTaskHiddenState()">Добавить
             задачу</button>
-        <AddTaskComponent :todoListStore="todoListStore" />
+        <div class="edit-task-container-wrapper" v-if="todoListStore.checkRedactionModalTaskVisible">
+            <div class="edit-task-container">
+                <input v-model="stateTaskValue" />
+                <div class="edit-cancel-buttons-container">
+                    <button type="button"
+                        @click="todoListStore.editTaskValue(stateTaskValue, stateTaskId)">Изменить</button>
+                    <button @click="todoListStore.changeRedactionModalTaskVisible()">Отмена</button>
+                </div>
+            </div>
+        </div>
     </main>
 </template>

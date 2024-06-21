@@ -19,6 +19,10 @@ export const useTodoListStore = defineStore('todoListStore', {
 
         addTaskHidden: [
             { hidden: true }
+        ],
+
+        redactionModalTaskVisible: [
+            { visible: true }
         ]
     }),
     getters: {
@@ -34,9 +38,8 @@ export const useTodoListStore = defineStore('todoListStore', {
             return this.addTaskHidden.findIndex(el => el.hidden);
         },
 
-        checkTaskValue() {
-            const nValue = this.tasks.findIndex(el => el.value === el.value);
-            return this
+        checkRedactionModalTaskVisible() {
+            return this.redactionModalTaskVisible.findIndex(el => el.visible)
         }
     },
     actions: {
@@ -55,6 +58,14 @@ export const useTodoListStore = defineStore('todoListStore', {
                 this.InputState[newError].error.message = '';
             }
         },
+
+        editTaskValue(value, id) {
+            const todoIndex = this.tasks.findIndex((el) => el.id === id);
+            if (value) {
+                this.tasks[todoIndex].value = value;
+            }
+        },
+
         addNewTask(value) {
             const newValue = this.InputState.findIndex(el => el.taskValue === value);
             const newError = this.InputState.findIndex(el => el.error.message === el.error.message);
@@ -81,6 +92,10 @@ export const useTodoListStore = defineStore('todoListStore', {
 
         changeAddTaskHiddenState() {
             this.addTaskHidden[0].hidden = !this.addTaskHidden[0].hidden;
+        },
+
+        changeRedactionModalTaskVisible() {
+            this.redactionModalTaskVisible[0].visible = !this.redactionModalTaskVisible[0].visible;
         }
     }
 })
