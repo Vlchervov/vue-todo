@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useTodoListStore } from '../store'
+import AddTaskComponent from './addTaskComponent.vue';
 const todoListStore = useTodoListStore()
 const stateTaskValue = ref("")
 const stateTaskId = ref(null);
@@ -52,5 +53,6 @@ function iteratingTasks(todo) {
                 </div>
             </div>
         </div>
+        <AddTaskComponent :todoListStore="todoListStore" />
     </main>
 </template>
