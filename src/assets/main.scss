@@ -29,13 +29,13 @@ input[type="checkbox"] {
   cursor: pointer;
   user-select: none;
   margin-bottom: 12px;
-  background-color: #1596ff;
-  color: white;
+  // background-color: #1596ff;
+  // color: white;
   transition: all 0.5s ease-in-out;
 
-  &:hover {
-    background-color: #0080e9;
-  }
+  // &:hover {
+  //   background-color: #0080e9;
+  // }
 }
 
 .tasks-list-container,

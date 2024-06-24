@@ -5,8 +5,7 @@ import AddTaskComponent from './addTaskComponent.vue';
 const todoListStore = useTodoListStore()
 const stateTaskValue = ref("")
 const stateTaskId = ref(null);
-
-function iteratingTasks(todo) {
+const iteratingTasks = (todo) => {
     stateTaskValue.value = todo.value;
     stateTaskId.value = todo.id
 }
@@ -40,6 +39,9 @@ function iteratingTasks(todo) {
                 в
                 списке.</p>
         </div>
+        <!-- <a-button type="primary" @click="todoListStore.changeAddTaskHiddenState()"
+            v-if="todoListStore.checkRedactionMode">Добавить
+            задачу</a-button> -->
         <button class="add-task-button" v-if="todoListStore.checkRedactionMode"
             @click="todoListStore.changeAddTaskHiddenState()">Добавить
             задачу</button>
@@ -54,5 +56,6 @@ function iteratingTasks(todo) {
             </div>
         </div>
         <AddTaskComponent :todoListStore="todoListStore" />
+
     </main>
 </template>
