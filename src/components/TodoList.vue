@@ -22,11 +22,11 @@ const iteratingTasks = (todo) => {
             <ul class="tasks-list">
                 <li v-for="todo in todoListStore.tasks">
                     <label :class="todoListStore.checkRedactionMode && todo.class" :for="todo.id" @click="() => {
-                if (!todoListStore.checkRedactionMode) {
-                    todoListStore.changeRedactionModalTaskVisible()
-                    iteratingTasks(todo)
-                }
-            }">
+                        if (!todoListStore.checkRedactionMode) {
+                            todoListStore.changeRedactionModalTaskVisible()
+                            iteratingTasks(todo)
+                        }
+                    }">
                         {{ todo.value }}
                     </label>
                     <input type="checkbox" :id="todo.id"

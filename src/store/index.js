@@ -55,14 +55,15 @@ export const useTodoListStore = defineStore('todoListStore', {
         checkInput(value) {
             const newError = this.InputState.findIndex(el => el.error.message === el.error.message);
             if (value) {
-                this.InputState[newError].error.message = '';
+                this.InputState[newError].error.message = "";
             }
         },
 
         editTaskValue(value, id) {
             const todoIndex = this.tasks.findIndex((el) => el.id === id);
-            if (value) {
-                this.tasks[todoIndex].value = value;
+            if (value && this.tasks[todoIndex].value !== value) {
+                this.tasks[todoIndex].value = value
+                this.redactionModalTaskVisible[0].visible = true
             }
         },
 
@@ -76,7 +77,7 @@ export const useTodoListStore = defineStore('todoListStore', {
                     value: value,
                     class: "unchecked"
                 })
-                this.InputState[newValue].taskValue = '', this.InputState[newError].error.message = "", this.addTaskHidden[0].hidden = true;
+                this.InputState[newValue].taskValue = "", this.InputState[newError].error.message = "", this.addTaskHidden[0].hidden = true;
             } else {
                 this.InputState[newError].error.message = "Поле должно быть заполнено!";
             }
